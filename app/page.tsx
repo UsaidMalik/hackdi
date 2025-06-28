@@ -1,5 +1,5 @@
 import SearchBar from "@/app/_components/searchBar";
-import AlgorithmSubscriber from "@/app/_components/AlgorithmSubscriber";
+import QueryEntityMapper from "@/app/_components/QueryEntityMapper";
 
 export default function Home() {
   return (
@@ -8,7 +8,7 @@ export default function Home() {
         Discover Something Better
       </h1>
       <SearchBar />
-      <AlgorithmSubscriber />
+      <QueryEntityMapper />
     </div>
   );
 }
