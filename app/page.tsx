@@ -1,5 +1,5 @@
-import SearchBar from "@/_components/SearchBar";
-import SearchSubscriber from "@/_components/AlgorithmSubscriber";
+import SearchBar from "@/app/_components/searchBar";
+import AlgorithmSubscriber from "@/app/_components/AlgorithmSubscriber";
 
 export default function Home() {
   return (
@@ -8,7 +8,7 @@ export default function Home() {
         Discover Something Better
       </h1>
       <SearchBar />
-      <SearchSubscriber />
+      <AlgorithmSubscriber />
     </div>
   );
 }
