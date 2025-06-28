@@ -1,4 +1,4 @@
-#IMPORTANT
+# IMPORTANT
 
 Create a .env in your top level directory (this directory ) and add the following env vars filled in with your info for the db
 
