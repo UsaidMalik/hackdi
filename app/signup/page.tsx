@@ -1,6 +1,7 @@
 import { getSession } from "../_lib/actions"
 import { redirect } from "next/navigation"
 import SignUpForm from "../_components/signupForm"
+import Link from 'next/link'
 
 const SignUp = async () => {  
   const session = await getSession()
@@ -20,7 +21,6 @@ const SignUp = async () => {
       </Link>
     </h1>
       </div>
-      <TransferBlock/>
     </div>
   )
 }

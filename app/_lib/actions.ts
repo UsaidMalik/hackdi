@@ -59,7 +59,7 @@ export const login = async (
     }
 
 
-    const user = await db.collection("Users").findOne({username: username});    
+    const user = await db.collection("users").findOne({username: username});    
     if (!user){
         return {
                 error: "Username DOESNT exist"
@@ -73,7 +73,7 @@ export const login = async (
       };
     }
 
-  const userMetadata = await db.collection("Users-Metadata").findOne({userId: user._id})
+  const userMetadata = await db.collection("users-metadata").findOne({userId: user._id})
 
   session.userId = user._id.toString();
   session.username = username;
@@ -103,10 +103,10 @@ export const changeUsername = async (
 
   const newUsername = formData.get("username") as string;
 
-  const user = await db.collection("Users").findOne({_id: new ObjectId(session.userId)});
+  const user = await db.collection("users").findOne({_id: new ObjectId(session.userId)});
 
   if (user) {
-    await db.collection("Users").updateOne({username: session.username}, {$set: {username: newUsername}});
+    await db.collection("users").updateOne({username: session.username}, {$set: {username: newUsername}});
   }
 
   session.username = newUsername
@@ -122,7 +122,7 @@ export const addLanguage = async (
 
   const origin = formData.get("origin") as string;
   const destination = formData.get("destination") as string;
-  await db.collection('Users-Metadata').updateOne(
+  await db.collection('users-metadata').updateOne(
     { userId: new ObjectId(session.userId) },
     { $set: { [origin]: destination } }
   );
@@ -180,12 +180,12 @@ export const signup = async (
             };
     } else {
         
-        db.collection("Users").insertOne({_id: userId,
+        db.collection("users").insertOne({_id: userId,
         username: username,
         hashed_password: hashedPassword
         });
         console.log("SUCCESFULLY CREATED USER")
-        db.collection("Users-Metadata").insertOne(
+        db.collection("users-metadata").insertOne(
           {userId: userId, 
            score: 0,
            streak: 0,
@@ -207,37 +207,3 @@ export const signup = async (
   redirect("/");
 };
 
-
-
-export async function addFriend (
-  prevState: { error: undefined | string },
-  formData: FormData) {
-    const session = await getSession();
-    const userMetadata = await db.collection("Users-Metadata").findOne({userId: new ObjectId(session.userId)})
-    const friendName = formData.get('friendName') as string;
-
-    if (userMetadata) {
-      const userFriends = userMetadata.friends
-      if (friendName === session.username){
-        return {error: "Cand Add Yourself"}
-      } else if (userFriends.includes(friendName)){
-        return {error: "Already added friend"}
-      }
-
-      await db.collection('Users-Metadata').updateOne(
-        { userId: new ObjectId(session.userId) },
-        { $push: { friends: friendName } as any }
-      );
-      console.log("saved friends well")
-      if (session.friends) {
-        session.friends.push(friendName);
-      } else {
-        session.friends = [friendName];
-      }
-      if (session.save) {
-        await session.save();
-      }
-    }
-    revalidatePath("/friends");
-    
-};
