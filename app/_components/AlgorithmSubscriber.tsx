@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { subscribeToSearch } from "@/_lib/searchQueue";
+import { subscribeToSearch } from "@/app/_lib/searchQueue";
 
-export default function SearchSubscriber() {
+export default function AlgorithmSubscriber() {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
