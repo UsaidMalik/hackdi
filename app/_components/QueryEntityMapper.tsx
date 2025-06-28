@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { subscribeToSearch } from "@/app/_lib/searchQueue";
 
-export default function AlgorithmSubscriber() {
+export default function QueryEntityMapper() {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
