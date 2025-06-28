@@ -1,3 +1,14 @@
+# IMPORTANT
+
+Create a .env in your top level directory (this directory ) and add the following env vars filled in with your info for the db
+
+
+```
+MONGODB_URI='mongodb+srv://<db_username>:<db_password>@cluster0.x78yfae.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+SECRET_COOKIE_PASSWORD=complexpasswordgoeshere_with32charactersminimum32434543
+```
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
