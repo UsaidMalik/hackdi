@@ -6,10 +6,18 @@ import { useEffect, useState } from 'react';
 import { getClientSession, SessionData } from '@/app/_lib/client-session';
 import LogoutButton from './LogoutButton';
 
+
+
+
 export default function Navbar() {
   const pathname = usePathname();
   const [session, setSession] = useState<SessionData | null>(null);
 
+  function linkClass(path: string) {
+    return `flex items-center space-x-1 ${
+      pathname === path ? 'text-black' : 'text-gray-600'
+    } hover:text-black`;
+  }
   useEffect(() => {
     async function fetchSession() {
       const sessionData = await getClientSession();
@@ -26,18 +34,19 @@ export default function Navbar() {
     <nav className="bg-transparent py-2">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
-          <Link href="/" className="text-text text-lg font-bold flex items-center space-x-1">
-            <span className="material-symbols-outlined">home</span>
-            <span>Home</span>
-          </Link>
-          <Link href="/contribute" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
-            <span className="material-symbols-outlined">explore</span>
-            <span>Contribute</span>
-          </Link>
-          <Link href="/blog" className="text-text hover:text-primary flex items-center space-x-1">
-            <span className="material-symbols-outlined">article</span>
-            <span>Blog</span>
-          </Link>
+         <Link href="/" className={linkClass('/')}>
+          <span className="material-symbols-outlined">home</span>
+          <span>Home</span>
+        </Link>
+        <Link href="/contribute" className={linkClass('/contribute')}>
+          <span className="material-symbols-outlined">explore</span>
+          <span>Contribute</span>
+        </Link>
+        <Link href="/blog" className={linkClass('/blog')}>
+          <span className="material-symbols-outlined">article</span>
+          <span>Blog</span>
+        </Link>
+
         </div>
         <div className="flex items-center space-x-4">
           {session?.isLoggedIn ? (
