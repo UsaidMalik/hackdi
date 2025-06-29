@@ -22,10 +22,6 @@ export default async function ProfilePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900 p-6">
-      {/* Top bar: Home + Logout */}
-        <HomeComponent/>
-        {/* Logout Button */}
-        <LogoutButton />
 
       {/* Center greeting and stats */}
       <div className="text-center space-y-2 mb-10">
@@ -50,12 +46,7 @@ export default async function ProfilePage() {
             ))}
           </div>
         )}
-          <Link
-              href="/contribute"
-              className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full w-8 h-8 text-2xl"
-            >
-              +
-            </Link>
+         
       </section>
     </div>
   );

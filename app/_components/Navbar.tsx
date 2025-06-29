@@ -30,9 +30,9 @@ export default function Navbar() {
             <span className="material-symbols-outlined">home</span>
             <span>Home</span>
           </Link>
-          <Link href="/explore" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
+          <Link href="/contribute" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
             <span className="material-symbols-outlined">explore</span>
-            <span>Explore</span>
+            <span>Contribute</span>
           </Link>
           <Link href="/blog" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
             <span className="material-symbols-outlined">article</span>
