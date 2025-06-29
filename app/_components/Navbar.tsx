@@ -26,15 +26,15 @@ export default function Navbar() {
     <nav className="bg-transparent py-2">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
-          <Link href="/" className="text-gray-800 text-lg font-bold flex items-center space-x-1">
+          <Link href="/" className="text-text text-lg font-bold flex items-center space-x-1">
             <span className="material-symbols-outlined">home</span>
             <span>Home</span>
           </Link>
-          <Link href="/explore" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
+          <Link href="/explore" className="text-text hover:text-primary flex items-center space-x-1">
             <span className="material-symbols-outlined">explore</span>
             <span>Explore</span>
           </Link>
-          <Link href="/blog" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
+          <Link href="/blog" className="text-text hover:text-primary flex items-center space-x-1">
             <span className="material-symbols-outlined">article</span>
             <span>Blog</span>
           </Link>
@@ -42,7 +42,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-4">
           {session?.isLoggedIn ? (
             <>
-              <Link href="/profile" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
+              <Link href="/profile" className="text-text hover:text-primary flex items-center space-x-1">
                 <span className="material-symbols-outlined">person</span>
                 <span>Profile</span>
               </Link>
@@ -50,10 +50,10 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link href="/login" className="text-gray-600 hover:text-gray-900">
+              <Link href="/login" className="text-text hover:text-primary">
                 Login
               </Link>
-              <Link href="/signup" className="text-gray-600 hover:text-gray-900">
+              <Link href="/signup" className="text-text hover:text-primary">
                 Sign Up
               </Link>
             </>
