@@ -42,12 +42,6 @@ export default async function ProfilePage() {
         {user.contributions.length === 0 ? (
           <div className="flex items-center justify-center text-gray-600 text-lg gap-2">
             You have no contributions!
-            <Link
-              href="/contribute"
-              className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full w-8 h-8 text-2xl"
-            >
-              +
-            </Link>
           </div>
         ) : (
           <div className="space-y-4">
@@ -56,6 +50,12 @@ export default async function ProfilePage() {
             ))}
           </div>
         )}
+          <Link
+              href="/contribute"
+              className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full w-8 h-8 text-2xl"
+            >
+              +
+            </Link>
       </section>
     </div>
   );
