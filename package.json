@@ -10,13 +10,18 @@
     "test": "jest"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "bcrypt": "^6.0.0",
+    "gray-matter": "^4.0.3",
     "iron-session": "^8.0.4",
     "mongodb": "^6.17.0",
     "next": "15.3.4",
     "oslo": "^1.2.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
