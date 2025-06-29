@@ -14,6 +14,7 @@ export default async function ProfilePage() {
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900 p-6">
 
+
       {/* Center greeting and stats */}
       <div className="text-center space-y-2 mb-10">
         <h1 className="text-3xl font-bold">Hello {user.username}</h1>

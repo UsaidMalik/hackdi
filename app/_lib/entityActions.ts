@@ -5,21 +5,22 @@ import { revalidatePath } from "next/cache";
 import { ObjectId } from "mongodb";
 import { getSession } from "./session";
 
-export async function updateReaction(id: string, type: "like" | "dislike") {
+export async function updateReaction(formData: FormData) {
   const session = await getSession();
-
   if (!session?.isLoggedIn) {
     throw new Error("Unauthorized");
   }
 
-  const entityId = new ObjectId(id);
+  const entityIdStr = formData.get("entityId") as string;
+  const type = formData.get("reaction") as "like" | "dislike";
+  const entityId = new ObjectId(entityIdStr);
   const username = session.username;
   const userCollection = db.collection("users");
   const entityCollection = db.collection("entities");
 
   const user = await userCollection.findOne({ username });
-  const reactionKey = `reactions.${id}`;
-  const previousReaction = user?.reactions?.[id];
+  const reactionKey = `reactions.${entityIdStr}`;
+  const previousReaction = user?.reactions?.[entityIdStr];
 
   // === Undo same reaction ===
   console.log("looking for prevuious reaciotn")
@@ -37,7 +38,7 @@ export async function updateReaction(id: string, type: "like" | "dislike") {
       { username },
       {
         $unset: { [reactionKey]: "" },
-        $pull: { interacted_posts: id }
+        $pull: { interacted_posts: entityIdStr } as any
       }
     );
 
@@ -74,11 +75,11 @@ export async function updateReaction(id: string, type: "like" | "dislike") {
     );
   }
 
-  await userCollection.updateOne(
+    await userCollection.updateOne(
     { username },
     {
       $set: { [reactionKey]: type },
-      $addToSet: { interacted_posts: id },
+      $addToSet: { interacted_posts: entityIdStr },
     }
   );
 

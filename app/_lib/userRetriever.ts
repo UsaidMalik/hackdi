@@ -1,7 +1,7 @@
 "use server";
 
-import { db } from "./db"
-import {getSession} from "./actions"
+import { db } from "./db";
+import { getSession } from "./session";
 
 export const getUserData = async () => {
   const session = await getSession();
