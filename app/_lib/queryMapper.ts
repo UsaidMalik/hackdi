@@ -1,5 +1,5 @@
 import { FindCursor } from "mongodb";
-import type { Entity } from "./types";
+import type { entity as Entity } from "./types";
 
 /**
  * Iterates over a MongoDB FindCursor of Entity documents and maps matches to entities
@@ -13,6 +13,10 @@ export default async function queryMapper(
   collectionCursor: FindCursor<Entity>
 ): Promise<Entity[]> {
   const results: Entity[] = [];
+
+  if (!query) {
+    return results;
+  }
 
   const queryWords: string[] = query.toLowerCase().split(/\s+/); // Split into words
 
