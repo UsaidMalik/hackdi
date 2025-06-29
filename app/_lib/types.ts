@@ -7,3 +7,20 @@ export type entity = {
   category: string;
   tags: Array
 };
+
+
+export type contribution = {
+  id: string; // this also links to it
+  title: string;
+  summary?: string;
+  link: string;
+};
+
+
+export type SessionData {
+  userId?: string;
+  username?: string;
+  isLoggedIn: boolean;
+  score?: number;
+  contributions?: Array[contribution];
+}
