@@ -5,11 +5,12 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./_articles/**/*.md",
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-lora)'],
+        sans: ['var(--font-geist-sans)'],
       },
       colors: {
         background: '#F5F5DC',
@@ -19,6 +20,8 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };
 export default config;
