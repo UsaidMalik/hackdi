@@ -8,17 +8,8 @@ import { redirect } from "next/navigation";
 import { db } from "./db"
 import { Argon2id } from "oslo/password";
 import { ObjectId } from "mongodb";
+import {contribution, SessionData} from "@/app/_lib/types"
 
-
-interface SessionData {
-  userId?: string;
-  username?: string;
-  isLoggedIn: boolean;
-  friends?: string[];
-  score?: number;
-  streak?: number;
-  languages?: { [key: string]: string };
-}
 
 export const getSession = async () => {
   const session = await getIronSession<SessionData>(await cookies(), sessionOptions);
@@ -73,16 +64,14 @@ export const login = async (
       };
     }
 
-  const userMetadata = await db.collection("users-metadata").findOne({userId: user._id})
 
   session.userId = user._id.toString();
   session.username = username;
   session.isLoggedIn = true;
 
-  session.friends = userMetadata?.friends ?? []
-  session.score = userMetadata?.score ?? 0
-  session.streak = userMetadata?.streak ?? 0
-  session.languages = userMetadata?.languages ?? {}
+
+  session.score = user?.score ?? 0
+  session.contributions = user?.contributions ?? []
 
   await session.save();
   redirect("/");
@@ -114,27 +103,6 @@ export const changeUsername = async (
   revalidatePath("/");
 };
 
-export const addLanguage = async (
-  prevState: { error: undefined | string },
-  formData: FormData
-) => {
-  const session = await getSession();
-
-  const origin = formData.get("origin") as string;
-  const destination = formData.get("destination") as string;
-  await db.collection('users-metadata').updateOne(
-    { userId: new ObjectId(session.userId) },
-    { $set: { [origin]: destination } }
-  );
-
-  if (session.languages) {
-    session.languages[origin] = destination;
-    await session.save();
-  }
-  await session.save();
-  revalidatePath("/");
-};
-
 
 
 export const signup = async (
@@ -160,7 +128,6 @@ export const signup = async (
 		};
 	}
 
-  console.log(password)
 	if (typeof password !== "string" || password.length < 6 || password.length > 255) {
         console.log("BAD PASSWORD")
 		return {
@@ -169,10 +136,9 @@ export const signup = async (
 	}
 
 	const hashedPassword = await new Argon2id().hash(password);
-	const userId = new ObjectId();
 
 	// TODO: check if username is already used
-	const user = await db.collection("Users").findOne({username: username});
+	const user = await db.collection("users").findOne({username: username});
     if (user){
         console.log("username already exists man")
         return {
@@ -180,28 +146,23 @@ export const signup = async (
             };
     } else {
         
-        db.collection("users").insertOne({_id: userId,
-        username: username,
-        hashed_password: hashedPassword
+        db.collection("users").insertOne({
+          username: username,
+          hashed_password: hashedPassword,
+          score: 0,
+          contributions: [],
         });
         console.log("SUCCESFULLY CREATED USER")
-        db.collection("users-metadata").insertOne(
-          {userId: userId, 
-           score: 0,
-           streak: 0,
-           friends: []
-          }
-      )
+      
 
     }
 
-  session.userId = userId.toString();
   session.username = username;
   session.isLoggedIn = true;
-  session.score = 0;
-  session.streak = 0;
-  session.friends = [];
-  session.languages = {};
+
+  // this user was just created theres nothing here
+  session.score = 0
+  session.contributions = []
 
   await session.save();
   redirect("/");
