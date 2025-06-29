@@ -5,7 +5,11 @@ export type entity = {
   entity_name: string;
   about: string;
   category: string;
-  tags: Array
+  tags: Array<string>;
+  scoreReasons: Array<string>;
+  likes: number;
+  dislikes: number;
+  image_url: string;
 };
 
 
@@ -17,10 +21,10 @@ export type contribution = {
 };
 
 
-export type SessionData {
+export type SessionData = {
   userId?: string;
   username?: string;
   isLoggedIn: boolean;
   score?: number;
-  contributions?: Array[contribution];
+  contributions?: Array<contribution>;
 }

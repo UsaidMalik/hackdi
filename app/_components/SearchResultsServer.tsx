@@ -3,12 +3,12 @@ import { Suspense } from "react";
 import SearchResultsClient from "./SearchResultsClient";
 import {db} from "@/app/_lib/db";
 import queryMapper from "@/app/_lib/queryMapper";
-import type { Entity } from "@/app/_lib/types";
+import type { entity } from "@/app/_lib/types";
 
 export default async function SearchResultsServer({ query }: { query: string }) {
   try {
 
-    const cursor = db.collection<Entity>("entities").find({});
+    const cursor = db.collection<entity>("entities").find({});
     const matches = await queryMapper(query, cursor);
     const plainResults = matches.map((entity) => ({
       ...entity,
