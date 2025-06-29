@@ -1,7 +1,7 @@
 import SearchBar from "@/app/_components/searchBar";
 import QueryEntityMapper from "@/app/_components/QueryEntityMapper";
 import LogoutButton from "@/app/_components/LogoutButton";
-import ProfileComponent from "@/app/_components/ProfileComponent"; // ⬅️ Import it
+import ProfileComponent from "@/app/_components/ProfileComponent";
 
 export default function Home() {
   return (
@@ -17,7 +17,6 @@ export default function Home() {
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center tracking-tight">
           Mqt3
         </h1>
-
         <SearchBar redirect="/explore" />
       </div>
     </div>
