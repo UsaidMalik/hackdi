@@ -10,7 +10,7 @@ export async function addEntity(formData: FormData) {
   if (!session?.isLoggedIn) throw new Error("Unauthorized");
   const contributor = session.username
 
-  
+
   const entity = {
     entity_name: formData.get("entity_name"),
     score: Number(formData.get("score")),
@@ -43,7 +43,10 @@ export async function addEntity(formData: FormData) {
   // 🪄 Push full contribution object into user's contributions array
   await users.updateOne(
     { username: session.username },
-    { $addToSet: { contributions: contribution } }
+    {
+      $addToSet: { contributions: contribution },
+      $inc: { points: 1 },
+    }
   );
 
   return result.insertedId.toString(); // return the ID so client can redirect
