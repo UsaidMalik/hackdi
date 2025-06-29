@@ -10,14 +10,21 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<User | null>(null);
+const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     async function fetchUser() {
       const data = await getUserData();
       setUser(data);
     }
+
     fetchUser();
+
+    // Poll every 10 seconds (adjust as needed)
+    const interval = setInterval(fetchUser, 10000);
+
+    // Cleanup interval on unmount
+    return () => clearInterval(interval);
   }, []);
 
   if (!user) return null; // or a loader
