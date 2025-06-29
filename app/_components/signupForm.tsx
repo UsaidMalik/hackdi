@@ -1,10 +1,10 @@
 "use client";
 
 import { signup } from "@/app/_lib/actions";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 
 const SignUpForm = () => {
-  const [state, formAction] = useFormState<any, FormData>(signup, undefined);
+  const [state, formAction] = useActionState(signup, { error: '' });
 
   return (
     <form action={formAction} className="flex flex-col w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
