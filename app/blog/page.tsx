@@ -25,7 +25,7 @@ export default async function Blog() {
           <h1 className="text-4xl font-bold mb-2">{latestArticle.title}</h1>
           <div className="text-gray-500 mb-8 border-b pb-4">
             <div>{latestArticle.date}</div>
-            <div> REERRERE {latestArticle.author}</div>
+            <div>by {latestArticle.author}</div>
           </div>
           <ReactMarkdown
             components={{
