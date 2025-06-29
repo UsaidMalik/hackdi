@@ -1,6 +1,8 @@
 // app/search/page.tsx
 import SearchResultsServer from "@/app/_components/SearchResultsServer";
 
+export const dynamic = 'force-dynamic';
+
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q: string }> }) {
   const { q } = await searchParams;
 

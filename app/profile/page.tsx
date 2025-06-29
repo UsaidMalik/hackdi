@@ -23,9 +23,7 @@ export default async function ProfilePage() {
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900 p-6">
       {/* Top bar: Home + Logout */}
-        <HomeComponent/>
         {/* Logout Button */}
-        <LogoutButton />
 
       {/* Center greeting and stats */}
       <div className="text-center space-y-2 mb-10">
