@@ -7,8 +7,7 @@ export default function Home() {
       <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center tracking-tight">
         Discover Something Better
       </h1>
-      <SearchBar />
-      <QueryEntityMapper />
+      <SearchBar redirect="/explore"/>
     </div>
   );
 }
