@@ -20,7 +20,7 @@ export default function LoginPage() {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="text-center"
         >
-          <h1 className="text-3xl font-extrabold text-gray-800">Mgm3</h1>
+          <h1 className="text-3xl font-extrabold text-gray-800">Mqt3</h1>
           <p className="text-gray-500 mt-1 italic">
             Welcome back — let’s get aggregating.
           </p>
