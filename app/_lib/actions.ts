@@ -148,7 +148,7 @@ export const signup = async (
         db.collection("users").insertOne({
           username: username,
           hashed_password: hashedPassword,
-          score: 0,
+          points: 0,
           contributions: [],
         });
         console.log("SUCCESFULLY CREATED USER")
@@ -160,7 +160,7 @@ export const signup = async (
   session.isLoggedIn = true;
 
   // this user was just created theres nothing here
-  session.score = 0
+  session.points = 0
   session.contributions = []
 
   await session.save();
