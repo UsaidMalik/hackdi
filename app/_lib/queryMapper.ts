@@ -1,5 +1,5 @@
 import { FindCursor } from "mongodb";
-import type { entity as Entity } from "./types";
+import type { entity } from "./types";
 
 /**
  * Iterates over a MongoDB FindCursor of Entity documents and maps matches to entities
@@ -10,9 +10,10 @@ import type { entity as Entity } from "./types";
  */
 export default async function queryMapper(
   query: string,
-  collectionCursor: FindCursor<Entity>
-): Promise<Entity[]> {
-  const results: Entity[] = [];
+  collectionCursor: FindCursor<entity>
+): Promise<entity[]> {
+  const results: entity[] = [];
+  const addedIds = new Set<string>();
 
   if (!query) {
     return results;
@@ -24,12 +25,14 @@ export default async function queryMapper(
     const entity_tags = entity.tags;
 
     for (const word of queryWords) {
-      if (entity_tags.includes(word)) {
-        results.push(entity);
-        break; // one match is enough — move to the next entity
+      if (entity.entity_name.toLowerCase().includes(word) || entity_tags.includes(word)) {
+        if (!addedIds.has(entity._id.toString())) {
+          results.push(entity);
+          addedIds.add(entity._id.toString());
+        }
+        break;
       }
     }
   }
-
   return results;
 }
