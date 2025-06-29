@@ -1,24 +1,34 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { publishSearchQuery } from "@/app/_lib/searchQueue";
 
-export default function SearchBar() {
-  const [value, setValue] = useState("");
+type SearchBarProps = {
+  redirect?: string; // Optional: if not provided, no redirect
+};
 
-  const handleSubmit = (e) => {
+export default function SearchBar({ redirect }: SearchBarProps) {
+  const [value, setValue] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (value.trim()) {
-      publishSearchQuery(value.trim());
-      setValue(""); // clear input
+
+    const trimmed = value.trim();
+    if (trimmed) {
+      publishSearchQuery(trimmed);
+      setValue("");
+
+      if (redirect) {
+        const encoded = encodeURIComponent(trimmed);
+        router.push(`${redirect}?q=${encoded}`);
+      }
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-4xl px-4 relative"
-    >
+    <form onSubmit={handleSubmit} className="w-full max-w-4xl px-4 relative">
       <input
         type="text"
         placeholder="What are you looking for?"
