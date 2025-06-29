@@ -14,9 +14,9 @@ export default async function Article({ params }: { params: { id: string } }) {
         <ul>
           {allArticlesData.map(({ id, title }) => (
             <li key={id} className="mb-2">
-              <Link href={`/blog/${id}`} className="text-blue-600 hover:underline">
-                {title}
-              </Link>
+<Link href={`/blog/${id}`} className={id === awaitedParams.id ? "text-blue-800 font-bold" : "text-blue-600 hover:underline"}>
+  {title}
+</Link>
             </li>
           ))}
         </ul>
