@@ -26,9 +26,18 @@ export async function addEntity(formData: FormData) {
   const users = db.collection("users");
 
   const result = await entities.insertOne(entity);
+  
+ // 🧩 Build contribution object with id, title, and summary
+  const contribution = {
+    id: result.insertedId,
+    title: formData.get("entity_name"),
+    summary: formData.get("about"),
+  };
+
+  // 🪄 Push full contribution object into user's contributions array
   await users.updateOne(
     { username: session.username },
-    { $addToSet: { contributions: result.insertedId } }
+    { $addToSet: { contributions: contribution } }
   );
 
   return result.insertedId.toString(); // return the ID so client can redirect
