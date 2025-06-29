@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Welcome to MJM3",
+  title: "Welcome to Mqt3",
   description: "Aggregate everything",
    icons: {
     icon: "/icon.jpg",
