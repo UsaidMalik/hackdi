@@ -17,6 +17,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 </aside>
 
 
+
     {/* Right Column (scrollable results) */}
     <section className="w-2/3 max-h-[80vh] overflow-y-auto pr-2">
       <SearchResultsServer query={q} />
