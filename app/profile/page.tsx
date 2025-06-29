@@ -1,3 +1,4 @@
+'use client';
 
 import Link from "next/link";
 import LogoutButton from "@/app/_components/LogoutButton";
@@ -5,16 +6,29 @@ import type { User } from "@/app/_lib/types"; // Adjust type if needed
 import HomeComponent from "@/app/_components/HomeComponent"
 import { getUserData } from "@/app/_lib/userRetriever"
 import ContributionCard from "@/app/_components/ContributionComponent"
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
-export default async function ProfilePage() {
+export default function ProfilePage() {
+  const [user, setUser] = useState<User | null>(null);
 
+  useEffect(() => {
+    async function fetchUser() {
+      const data = await getUserData();
+      setUser(data);
+    }
+    fetchUser();
+  }, []);
 
-  const user = await getUserData()
+  if (!user) return null; // or a loader
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-gray-900 p-6">
-
-
+    <motion.div
+      className="min-h-screen flex flex-col bg-white text-gray-900 p-6"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       {/* Center greeting and stats */}
       <div className="text-center space-y-2 mb-10">
         <h1 className="text-3xl font-bold">Hello {user.username}</h1>
@@ -32,14 +46,34 @@ export default async function ProfilePage() {
             You have no contributions!
           </div>
         ) : (
-          <div className="space-y-4">
+          <motion.div
+            className="space-y-4"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+          >
             {user.contributions.map((contribution, idx) => (
-             <ContributionCard contribution={contribution} key={idx}/>
+              <motion.div
+                key={idx}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.4 }}
+              >
+                <ContributionCard contribution={contribution} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
-         
       </section>
-    </div>
+    </motion.div>
   );
 }
