@@ -5,6 +5,6 @@ import {getSession} from "./actions"
 
 export const getUserData = async () => {
   const session = await getSession();
-  const user = await db.collection("users").findOne({_id: new ObjectId(session.username)});
+  const user = await db.collection("users").findOne({username: session.username});
   return user
 };
