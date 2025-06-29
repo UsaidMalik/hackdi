@@ -1,6 +1,6 @@
 ---
-title: 'Boycotting the System: A Deeper Look'
-date: '2024-01-22'
+title: 'Why We Boycott the System, Not Just the Brands'
+date: '2024-01-01'
 author: 'Mohammed Ibrahim Ludwick'
 ---
 
