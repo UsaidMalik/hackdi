@@ -21,7 +21,7 @@ const [user, setUser] = useState<User | null>(null);
     fetchUser();
 
     // Poll every 10 seconds (adjust as needed)
-    const interval = setInterval(fetchUser, 10000);
+    const interval = setInterval(fetchUser, 100);
 
     // Cleanup interval on unmount
     return () => clearInterval(interval);
@@ -40,7 +40,7 @@ const [user, setUser] = useState<User | null>(null);
       <div className="text-center space-y-2 mb-10">
         <h1 className="text-3xl font-bold">Hello {user.username}</h1>
         <p className="text-gray-600 text-lg">
-          You have Points {user.score} <span className="text-orange-500 text-xl">🔥</span>
+          You have Points {user.points} <span className="text-orange-500 text-xl">🔥</span>
         </p>
       </div>
 
