@@ -26,20 +26,26 @@ export default function Navbar() {
     <nav className="bg-transparent py-2">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
-          <Link href="/" className="text-gray-800 text-lg font-bold">
-            Home
+          <Link href="/" className="text-gray-800 text-lg font-bold flex items-center space-x-1">
+            <span className="material-symbols-outlined">home</span>
+            <span>Home</span>
           </Link>
-          <Link href="/explore" className="text-gray-600 hover:text-gray-900">
-            Explore
+          <Link href="/explore" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
+            <span className="material-symbols-outlined">explore</span>
+            <span>Explore</span>
           </Link>
-          <Link href="/blog" className="text-gray-600 hover:text-gray-900">
-            Blog
+          <Link href="/blog" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
+            <span className="material-symbols-outlined">article</span>
+            <span>Blog</span>
           </Link>
         </div>
         <div className="flex items-center space-x-4">
           {session?.isLoggedIn ? (
             <>
-              <span className="text-gray-800">Welcome, {session.username}</span>
+              <Link href="/profile" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
+                <span className="material-symbols-outlined">person</span>
+                <span>Profile</span>
+              </Link>
               <LogoutButton />
             </>
           ) : (
