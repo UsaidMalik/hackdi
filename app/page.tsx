@@ -5,6 +5,7 @@ import ProfileComponent from "@/app/_components/ProfileComponent";
 
 export default function Home() {
   return (
+
     <div className="flex flex-col min-h-screen bg-background text-text px-4">
 
       {/* Centered content below header */}
