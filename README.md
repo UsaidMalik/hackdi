@@ -45,3 +45,42 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+##############################################################
+
+# Muqاطa'ah: The Ummah's Economic Compass (Mqt3) Guide
+
+This project was created for the HackDI hackathon on Saturday, June 28th.
+
+*Vision:* To create a digital tool that empowers Muslims to disengage from the "Zionist-globalist war on Islam" by making conscious economic choices, fostering self-sufficiency, and reviving the principles of zuhd (asceticism) as an act of worship ('ibādah).
+
+This is a [Next.js](https://nextjs.org) project.
+
+## Deployment
+
+The application is deployed on Vercel and can be accessed here: [https://hackdi-e8ga.vercel.app/](https://hackdi-e8ga.vercel.app/)
+
+## Setup
+
+1.  Create a .env.local file in the root directory and add the following environment variables, replacing the placeholders with your database credentials:
+
+    
+    MONGODB_URI='mongodb+srv://<db_username>:<db_password>@cluster0.x78yfae.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+    SECRET_COOKIE_PASSWORD=complex_password_with_at_least_32_characters
+    
+
+2.  Install dependencies:
+    bash
+    npm install
+    
+
+## Running the Development Server
+
+To start the development server, run:
+
+bash
+npm run dev
+
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
