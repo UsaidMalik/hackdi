@@ -2,51 +2,39 @@
 
 import { updateReaction } from "@/app/_lib/entityActions";
 import type { Entity } from "@/app/_lib/types";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 export default function EntityModal({ entity }: { entity: Entity }) {
   const scoreColor = getScoreColor(entity.score);
   const [greenFlag, setGreenFlag] = useState(false);
   const [redFlag, setRedFlag] = useState(false);
-  const [likes, setLikes] = useState(entity.likes);
-  const [dislikes, setDislikes] = useState(entity.dislikes);
+  const formRef = useRef<HTMLFormElement>(null);
+  const reactionInputRef = useRef<HTMLInputElement>(null);
 
-  const handleReaction = async (type: "like" | "dislike") => {
+  const handleClick = (type: "like" | "dislike") => {
+    const isUndo = (type === "like" && greenFlag) || (type === "dislike" && redFlag);
+
+    // Update local UI flags
     if (type === "like") {
-      if (greenFlag) {
-        // Undo like
-        setGreenFlag(false);
-        setLikes((l) => l - 1);
-        await updateReaction(entity._id, "like"); // optional: use different server action to undo
-      } else {
-        // Apply like
-        setGreenFlag(true);
-        setRedFlag(false);
-        setLikes((l) => l + 1);
-        if (redFlag) setDislikes((d) => d - 1);
-        await updateReaction(entity._id, "like");
-      }
+      setGreenFlag(!greenFlag);
+      setRedFlag(false);
     } else {
-      if (redFlag) {
-        // Undo dislike
-        setRedFlag(false);
-        setDislikes((d) => d - 1);
-        await updateReaction(entity._id, "dislike"); // optional: use different server action to undo
-      } else {
-        // Apply dislike
-        setRedFlag(true);
-        setGreenFlag(false);
-        setDislikes((d) => d + 1);
-        if (greenFlag) setLikes((l) => l - 1);
-        await updateReaction(entity._id, "dislike");
-      }
+      setRedFlag(!redFlag);
+      setGreenFlag(false);
     }
+
+    // Always submit the reaction type (server will detect if it's an undo)
+    if (reactionInputRef.current) {
+      reactionInputRef.current.value = type;
+    }
+
+    // Submit form
+    formRef.current?.requestSubmit();
   };
 
   return (
     <div className="border border-gray-300 rounded-md shadow p-6 bg-white max-w-2xl w-full">
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Image */}
         <div className="md:w-1/3">
           <img
             src={entity.image_url}
@@ -57,14 +45,16 @@ export default function EntityModal({ entity }: { entity: Entity }) {
 
         <div className="hidden md:block w-px bg-gray-300" />
 
-        {/* Content */}
         <div className="w-full space-y-4">
           <h2 className="text-2xl font-bold">{entity.entity_name}</h2>
           <p className="text-gray-700">{entity.about}</p>
 
           <div className="space-y-1 text-sm">
             <p><strong>Category:</strong> {entity.category}</p>
-            <p><strong>Score:</strong> <span style={{ color: scoreColor }}>{entity.score}</span></p>
+            <p>
+              <strong>Score:</strong>{" "}
+              <span style={{ color: scoreColor }}>{entity.score}</span>
+            </p>
             <div className="flex flex-wrap gap-2">
               {entity.tags.map((tag) => (
                 <span key={tag} className="bg-gray-200 text-gray-800 text-xs px-3 py-1 rounded-full">
@@ -74,30 +64,42 @@ export default function EntityModal({ entity }: { entity: Entity }) {
             </div>
           </div>
 
-          {/* Reactions */}
-          <div className="flex gap-4 pt-2">
+          {/* Reaction Form */}
+          <form
+            ref={formRef}
+            action={async (formData) => {
+              const type = formData.get("reaction") as "like" | "dislike";
+              await updateReaction(entity._id, type);
+            }}
+            className="flex gap-4 pt-2"
+          >
+            <input type="hidden" name="entityId" value={entity._id.toString()} />
+            <input ref={reactionInputRef} type="hidden" name="reaction" />
+
             <button
-              onClick={() => handleReaction("like")}
+              type="button"
+              onClick={() => handleClick("like")}
               className={`px-3 py-1 rounded flex items-center gap-1 transition ${
                 greenFlag
                   ? "bg-green-100 text-green-700 font-semibold"
                   : "hover:bg-green-50 text-green-600"
               }`}
             >
-              👍 {likes}
+              👍 {entity.likes}
             </button>
 
             <button
-              onClick={() => handleReaction("dislike")}
+              type="button"
+              onClick={() => handleClick("dislike")}
               className={`px-3 py-1 rounded flex items-center gap-1 transition ${
                 redFlag
                   ? "bg-red-100 text-red-700 font-semibold"
                   : "hover:bg-red-50 text-red-600"
               }`}
             >
-              👎 {dislikes}
+              👎 {entity.dislikes}
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
