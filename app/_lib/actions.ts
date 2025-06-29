@@ -10,7 +10,6 @@ import { Argon2id } from "oslo/password";
 import { ObjectId } from "mongodb";
 import {contribution, SessionData} from "@/app/_lib/types"
 
-
 export const getSession = async () => {
   const session = await getIronSession<SessionData>(await cookies(), sessionOptions);
 
