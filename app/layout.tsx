@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Welcome to MJM3",
   description: "Aggregate everything",
+   icons: {
+    icon: "/favicon.jpg",
+  },
 };
 
 export default function RootLayout({
