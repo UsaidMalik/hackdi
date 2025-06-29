@@ -1,9 +1,9 @@
 ---
 title: 'Our Method: A Boycott for the Sake of Allah'
-date: '2025-01-01'
+date: '2025-06-28'
 author: 'The Muqāṭaʿah Team'
 ---
-
+a
 # Our Method: A Boycott for the Sake of Allah
 
 All praise belongs to Allah, the Lord of all worlds. This platform is not just another boycott list. It is an attempt to answer a fundamental question for the modern Muslim: How do we navigate a world where our very economic activity—our jobs, our purchases, our savings—is used to strengthen a global system at war with Islam?

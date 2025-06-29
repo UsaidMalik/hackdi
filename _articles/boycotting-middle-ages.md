@@ -1,6 +1,6 @@
 ---
 title: "Answering the Doubts: 'Will Boycotting Take Us Back to the Middle Ages?'"
-date: '2022-05-24'
+date: '2024-05-24'
 author: 'Mohammed Ibrahim Ludwick'
 ---
 
